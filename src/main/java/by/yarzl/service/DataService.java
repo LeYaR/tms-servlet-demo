@@ -5,7 +5,6 @@ import by.yarzl.db.DemoEntity;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.List;
 
@@ -19,14 +18,8 @@ public class DataService {
         mapper = new ObjectMapper();
     }
 
-    public String getAllEntitiesForResponse() throws IOException {
-        List<DemoEntity> entities = dataProvider.getAllEntities();
-
-        // Пример конверсии сделан на Jackson, в Вашей домашней работе используйте GSON ;)
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        mapper.writeValue(out, entities);
-
-        return out.toString();
+    public List<DemoEntity> getAllEntitiesForResponse() throws IOException {
+        return dataProvider.getAllEntities();
     }
 
     public void addEntity(String entityString) throws JsonProcessingException {
@@ -35,7 +28,7 @@ public class DataService {
         dataProvider.addEntity(demoEntity);
     }
 
-    public void deleteEntity(String id) throws Exception{
+    public void deleteEntity(String id) throws Exception {
         // TODO: Валидация значения
         int intId = Integer.parseInt(id);
         dataProvider.deleteEntityById(intId);
